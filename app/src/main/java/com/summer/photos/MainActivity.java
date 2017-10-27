@@ -1,82 +1,40 @@
 package com.summer.photos;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.os.Build;
-import android.provider.MediaStore;
-import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
+import android.support.v7.widget.RecyclerView;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.net.URI;
+import com.summer.photos.adapter.MyRecyclerViewAdapter;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final int TAKE_PHOTO = 1;
-    private Button takePhoto;
-    private ImageView displayImg;
-    private Uri imgUri;
+    private RecyclerView mRecyclerView;
+    private MyRecyclerViewAdapter mAdapter;
 
+    private final static int[] PICTURE = {R.drawable.camera, R.drawable.camera,
+            R.drawable.camera, R.drawable.camera};
+    private final static String[] TEXT = {"照相机", "相册", "编辑", "修整"};
+    private List<Intent> mIntents;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initData();
         initView();
     }
 
+    private void initData() {
+//        Intent intent = new Intent(this,)
+    }
+
     private void initView() {
-        takePhoto = (Button) findViewById(R.id.btn_takephoto);
-        displayImg = (ImageView) findViewById(R.id.iv_photo);
-        takePhoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                takePhoto();
-            }
-        });
-    }
-
-    private void takePhoto() {
-        File file = new File(getExternalCacheDir(),"img.jpg");
-        if (file.exists()) {
-            file.delete();
-        }
-        try {
-            file.createNewFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        if (Build.VERSION.SDK_INT > 23) {
-            imgUri = FileProvider.getUriForFile(MainActivity.this,"com.summer.photo.fileprovider",file);
-        } else {
-            imgUri = Uri.fromFile(file);
-        }
-        Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-        intent.putExtra(MediaStore.EXTRA_OUTPUT,imgUri);
-        startActivityForResult(intent,TAKE_PHOTO);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_OK) {
-            switch (requestCode) {
-                case TAKE_PHOTO:
-                    try {
-                        Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver()
-                        .openInputStream(imgUri));
-                        displayImg.setImageBitmap(bitmap);
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                    break;
-            }
-        }
+//        mRecyclerView = (RecyclerView) findViewById(R.id.recycle_view);
+//        mAdapter = new MyRecyclerViewAdapter(this,TEXT,PICTURE);
+//        GridLayoutManager layoutManager = new GridLayoutManager(this,2);
+//        mRecyclerView.setLayoutManager(layoutManager);
+//        mRecyclerView.setAdapter(mAdapter);
     }
 }
