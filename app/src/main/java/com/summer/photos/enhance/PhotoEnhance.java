@@ -25,8 +25,7 @@ import android.graphics.Paint;
 /**
  * @author summer
  */
-public class PhotoEnhance
-{
+public class PhotoEnhance {
 
     public final int Enhance_Saturation = 0;
     public final int Enhance_Brightness = 1;
@@ -38,44 +37,34 @@ public class PhotoEnhance
     private float brightNum = 0.0f;
     private float contrastNum = 1.0f;
 
-    public PhotoEnhance(Bitmap bitmap)
-    {
+    public PhotoEnhance(Bitmap bitmap) {
         this.mBitmap = bitmap;
     }
 
     /**
      * 设置饱和度 ( 0 ~ 2)
-     * 
-     * @param saturationNum
-     *            (范围 :0 ~ 255)
-     * 
+     *
+     * @param saturationNum (范围 :0 ~ 255)
      */
-    public void setSaturation(int saturationNum)
-    {
+    public void setSaturation(int saturationNum) {
         this.saturationNum = (float) (saturationNum * 1.0f / 128);
     }
 
     /**
      * 设置亮度 (-128 ~ 128 )
-     * 
-     * @param brightNum
-     *            (范围：0 ~ 255)
-     * 
+     *
+     * @param brightNum (范围：0 ~ 255)
      */
-    public void setBrightness(int brightNum)
-    {
+    public void setBrightness(int brightNum) {
         this.brightNum = brightNum - 128;
     }
 
     /**
      * 设置对比度 (0.5 ~ 1.5)
-     * 
-     * @param contrastNum
-     *            (范围 : 0 ~ 255)
-     * 
+     *
+     * @param contrastNum (范围 : 0 ~ 255)
      */
-    public void setContrast(int contrastNum)
-    {
+    public void setContrast(int contrastNum) {
         this.contrastNum = (float) ((contrastNum / 2 + 64) / 128.0);
     }
 
@@ -84,8 +73,7 @@ public class PhotoEnhance
     private ColorMatrix contrastMatrix = null;
     private ColorMatrix brightnessMatrix = null;
 
-    public Bitmap handleImage(int type)
-    {
+    public Bitmap handleImage(int type) {
 
         Bitmap bmp = Bitmap.createBitmap(mBitmap.getWidth(),
                 mBitmap.getHeight(), Bitmap.Config.ARGB_8888);
@@ -93,42 +81,37 @@ public class PhotoEnhance
         Paint paint = new Paint();
         paint.setAntiAlias(true);
 
-        if (mAllMatrix == null)
-        {
+        if (mAllMatrix == null) {
             mAllMatrix = new ColorMatrix();
         }
 
         /* 饱和度矩阵 */
-        if (saturationMatrix == null)
-        {
+        if (saturationMatrix == null) {
             saturationMatrix = new ColorMatrix();
         }
 
         /* 对比度矩阵 */
-        if (contrastMatrix == null)
-        {
+        if (contrastMatrix == null) {
             contrastMatrix = new ColorMatrix();
         }
 
         /* 亮度矩阵 */
-        if (brightnessMatrix == null)
-        {
+        if (brightnessMatrix == null) {
             brightnessMatrix = new ColorMatrix();
         }
 
-        switch (type)
-        {
-            case Enhance_Saturation :
+        switch (type) {
+            case Enhance_Saturation:
                 saturationMatrix.reset();
                 saturationMatrix.setSaturation(saturationNum);
                 break;
 
-            case Enhance_Brightness :
+            case Enhance_Brightness:
                 brightnessMatrix.reset();
                 brightnessMatrix.set(new float[]{1, 0, 0, 0, brightNum, 0, 1,
                         0, 0, brightNum, 0, 0, 1, 0, brightNum, 0, 0, 0, 1, 0});
                 break;
-            case Enhance_Contrast :
+            case Enhance_Contrast:
 
                 /* 在亮度不变的情况下，提高对比度必定要降低亮度 */
 
@@ -141,7 +124,7 @@ public class PhotoEnhance
                         0, 0, contrastNum, 0, regulateBright, 0, 0, 0, 1, 0});
                 break;
 
-            default :
+            default:
                 break;
         }
 

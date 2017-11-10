@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     String photoPath = c.getString(columnIndex);
                     c.close();
                     Log.e(TAG,"photoPath = " + photoPath);
-                    enhanceIntent = new Intent(MainActivity.this, EnhanceActivity.class);
+                    enhanceIntent = new Intent(MainActivity.this, ImageFilterActivity.class);
                     enhanceIntent.putExtra("imagePath", photoPath);
                     startActivity(enhanceIntent);
                     break;
