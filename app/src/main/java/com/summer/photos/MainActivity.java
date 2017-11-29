@@ -32,12 +32,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static final int REQUEST_PERMISSION = 1;
     public static final int TAKE_PHOTO = 2;
     public static final int PICK_PHOTO = 3;
+    public static final int IMAGE_EDIT = 4;
+    public static final int IMAGE_FILTER = 5;
+    public static final int IMAGE_CUT = 6;
+    public static final int IMAGE_ROTATE = 7;
+    public static final int IMAGE_FRAME = 8;
+    public static final int IMAGE_COMIC = 9;
 
     private ImageView mImageView;
     private CardView mCamera;
     private CardView mAlbum;
-    private CardView mEdit;
+    private CardView mGraffiti;
     private CardView mFilter;
+    private CardView mCut;
+    private CardView mRotate;
+    private CardView mFrame;
+    private CardView mComic;
     private Uri imgUri;
     private String mImagePath;
 
@@ -54,10 +64,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mCamera.setOnClickListener(this);
         mAlbum = (CardView) findViewById(R.id.album);
         mAlbum.setOnClickListener(this);
-        mEdit = (CardView) findViewById(R.id.edit);
-        mEdit.setOnClickListener(this);
+        mGraffiti = (CardView) findViewById(R.id.graffiti);
+        mGraffiti.setOnClickListener(this);
         mFilter = (CardView) findViewById(R.id.filter);
         mFilter.setOnClickListener(this);
+        mCut = (CardView) findViewById(R.id.cut);
+        mCut.setOnClickListener(this);
+        mRotate = (CardView) findViewById(R.id.rotate);
+        mRotate.setOnClickListener(this);
+        mFrame = (CardView) findViewById(R.id.frame);
+        mFrame.setOnClickListener(this);
+        mComic = (CardView) findViewById(R.id.comic);
+        mComic.setOnClickListener(this);
     }
 
 
@@ -90,11 +108,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(albumIntent, PICK_PHOTO);
                 break;
-            case R.id.edit:
-
+            case R.id.graffiti:
+                grantPermission();
+                Intent graffitiIntent = new Intent(Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(graffitiIntent, IMAGE_EDIT);
                 break;
             case R.id.filter:
-
+                grantPermission();
+                Intent filterIntent = new Intent(Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(filterIntent,IMAGE_FILTER);
+                break;
+            case R.id.cut:
+                grantPermission();
+                Intent cutIntent = new Intent(Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(cutIntent,IMAGE_CUT);
                 break;
         }
     }
@@ -117,6 +147,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    public String getAlbumPhoto(Uri uri){
+        String[] filePathColumns = {MediaStore.Images.Media.DATA};
+        Cursor c = getContentResolver().query(uri, filePathColumns, null, null, null);
+        if (c !=null) {
+            c.moveToFirst();
+        }
+        int columnIndex = c.getColumnIndex(filePathColumns[0]);
+        String photoPath = c.getString(columnIndex);
+        c.close();
+        return photoPath;
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
@@ -132,17 +174,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     break;
                 case PICK_PHOTO:
                     Uri pickUri = data.getData();
-                    String[] filePathColumns = {MediaStore.Images.Media.DATA};
-                    Cursor c = getContentResolver().query(pickUri, filePathColumns, null, null, null);
-                    c.moveToFirst();
-                    int columnIndex = c.getColumnIndex(filePathColumns[0]);
-                    String photoPath = c.getString(columnIndex);
-                    c.close();
+                    String photoPath = getAlbumPhoto(pickUri);
                     Log.e(TAG,"photoPath = " + photoPath);
-                    enhanceIntent = new Intent(MainActivity.this, ImageFilterActivity.class);
+                    enhanceIntent = new Intent(MainActivity.this, EnhanceActivity.class);
                     enhanceIntent.putExtra("imagePath", photoPath);
                     startActivity(enhanceIntent);
                     break;
+                case IMAGE_EDIT:
+                    Uri editUri = data.getData();
+                    String editPath = getAlbumPhoto(editUri);
+                    Log.e(TAG,"editPath = " + editPath);
+                    Intent editIntent = new Intent(MainActivity.this, GraffitiActivity.class);
+                    editIntent.putExtra("imagePath", editPath);
+                    startActivity(editIntent);
+                    break;
+                case IMAGE_FILTER:
+                    Uri filterUri = data.getData();
+                    String filterPath = getAlbumPhoto(filterUri);
+                    Log.e(TAG,"filterPath = " + filterPath);
+                    Intent filterIntent = new Intent(MainActivity.this, FilterActivity.class);
+                    filterIntent.putExtra("imagePath", filterPath);
+                    startActivity(filterIntent);
+                    break;
+                case IMAGE_CUT:
+                    
             }
         }
     }

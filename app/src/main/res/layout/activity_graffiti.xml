@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp"
+    android:orientation="vertical"
+    tools:context="com.summer.photos.GraffitiActivity">
+
+    <com.summer.photos.draw.DrawView
+        android:id="@+id/draw_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:id="@+id/color_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:gravity="center_horizontal">
+
+        <com.summer.photos.draw.CircleButton
+            android:id="@+id/red_circle"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1" />
+
+        <com.summer.photos.draw.CircleButton
+            android:id="@+id/yellow_circle"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1" />
+
+        <com.summer.photos.draw.CircleButton
+            android:id="@+id/green_circle"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1" />
+
+        <com.summer.photos.draw.CircleButton
+            android:id="@+id/blue_circle"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1" />
+
+        <com.summer.photos.draw.CircleButton
+            android:id="@+id/black_circle"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1" />
+
+        <com.summer.photos.draw.CircleButton
+            android:id="@+id/magenta_circle"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1" />
+
+        <com.summer.photos.draw.CircleButton
+            android:id="@+id/gray_circle"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/size_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <com.summer.photos.draw.CircleButton
+            app:circleColor="#FF00FFFF"
+            android:id="@+id/more_small"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            app:circleSize="10" />
+
+        <com.summer.photos.draw.CircleButton
+            app:circleColor="#FFBFBFBF"
+            android:id="@+id/small"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            app:circleSize="20" />
+
+        <com.summer.photos.draw.CircleButton
+            app:circleColor="#FFBFBFBF"
+            android:id="@+id/standard"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            app:circleSize="30" />
+
+        <com.summer.photos.draw.CircleButton
+            app:circleColor="#FFBFBFBF"
+            android:id="@+id/big"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            app:circleSize="40" />
+
+        <com.summer.photos.draw.CircleButton
+            app:circleColor="#FFBFBFBF"
+            android:id="@+id/more_big"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            app:circleSize="50" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/cancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="取消" />
+
+        <com.summer.photos.draw.CircleButton
+            android:id="@+id/color"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            app:circleColor="#FF0000" />
+
+        <com.summer.photos.draw.CircleButton
+            android:id="@+id/size"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            app:circleColor="#FFBFBFBF" />
+
+        <com.summer.photos.draw.CircleButton
+            android:id="@+id/revoke"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/submit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="保存" />
+
+    </LinearLayout>
+
+</LinearLayout>

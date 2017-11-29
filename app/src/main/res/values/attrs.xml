@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CircleButton">
+        <attr name="circleSize" format="integer"/>
+        <attr name="circleColor" format="color|integer"/>
+    </declare-styleable>
+</resources>

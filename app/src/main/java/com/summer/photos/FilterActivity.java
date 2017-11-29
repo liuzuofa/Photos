@@ -5,11 +5,9 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.summer.photos.filters.FilterType;
 import com.summer.photos.filters.Filters;
@@ -20,9 +18,9 @@ import com.summer.photos.filters.Filters;
  *
  * @author summer
  */
-public class ImageFilterActivity extends Activity implements View.OnClickListener {
+public class FilterActivity extends Activity implements View.OnClickListener {
 
-    private final String TAG = "ImageFilterActivity";
+    private final String TAG = "FilterActivity";
 
     private ImageView mImageView;
     private String mImagePath = null;
@@ -42,7 +40,7 @@ public class ImageFilterActivity extends Activity implements View.OnClickListene
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_filter);
+        setContentView(R.layout.activity_filter);
         initView();
     }
 
