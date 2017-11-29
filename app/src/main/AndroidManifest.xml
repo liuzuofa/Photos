@@ -31,10 +31,11 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name=".TestActivity">
-        </activity>
-        <activity android:name=".FilterActivity"/>
-        <activity android:name=".GraffitiActivity"/>
+        <activity android:name=".TestActivity" />
+        <activity android:name=".FilterActivity" />
+        <activity android:name=".GraffitiActivity" />
+        <activity android:name=".FrameActivity" />
+        <activity android:name=".RotateActivity"></activity>
     </application>
 
 </manifest>

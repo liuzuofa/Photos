@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static final int REQUEST_PERMISSION = 1;
     public static final int TAKE_PHOTO = 2;
     public static final int PICK_PHOTO = 3;
-    public static final int IMAGE_EDIT = 4;
+    public static final int IMAGE_GRAFFITI = 4;
     public static final int IMAGE_FILTER = 5;
     public static final int IMAGE_CUT = 6;
     public static final int IMAGE_ROTATE = 7;
@@ -92,40 +92,48 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.camera:
-                grantPermission();
-                Intent cameraIntent = new Intent("android.media.action.IMAGE_CAPTURE");
-                if (imgUri == null) {
-                    createFile();
-                }
-                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imgUri);
-                startActivityForResult(cameraIntent, TAKE_PHOTO);
-                break;
-            case R.id.album:
-                grantPermission();
-                Intent albumIntent = new Intent(Intent.ACTION_PICK,
-                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(albumIntent, PICK_PHOTO);
-                break;
-            case R.id.graffiti:
-                grantPermission();
-                Intent graffitiIntent = new Intent(Intent.ACTION_PICK,
-                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(graffitiIntent, IMAGE_EDIT);
-                break;
-            case R.id.filter:
-                grantPermission();
-                Intent filterIntent = new Intent(Intent.ACTION_PICK,
-                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(filterIntent,IMAGE_FILTER);
-                break;
-            case R.id.cut:
-                grantPermission();
-                Intent cutIntent = new Intent(Intent.ACTION_PICK,
-                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(cutIntent,IMAGE_CUT);
-                break;
+        grantPermission();
+        if (view.getId() == R.id.camera) {
+            Intent cameraIntent = new Intent("android.media.action.IMAGE_CAPTURE");
+            if (imgUri == null) {
+                createFile();
+            }
+            cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imgUri);
+            startActivityForResult(cameraIntent, TAKE_PHOTO);
+        }else {
+            Intent intent = new Intent(Intent.ACTION_PICK,
+                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            switch (view.getId()) {
+                /*case R.id.camera:
+                    Intent cameraIntent = new Intent("android.media.action.IMAGE_CAPTURE");
+                    if (imgUri == null) {
+                        createFile();
+                    }
+                    cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imgUri);
+                    startActivityForResult(cameraIntent, TAKE_PHOTO);
+                    break;*/
+                case R.id.album:
+                    startActivityForResult(intent, PICK_PHOTO);
+                    break;
+                case R.id.graffiti:
+                    startActivityForResult(intent, IMAGE_GRAFFITI);
+                    break;
+                case R.id.filter:
+                    startActivityForResult(intent, IMAGE_FILTER);
+                    break;
+                case R.id.cut:
+                    startActivityForResult(intent, IMAGE_CUT);
+                    break;
+                case R.id.rotate:
+                    startActivityForResult(intent, IMAGE_ROTATE);
+                    break;
+                case R.id.frame:
+                    startActivityForResult(intent, IMAGE_FRAME);
+                    break;
+                case R.id.comic:
+                    startActivityForResult(intent, IMAGE_COMIC);
+                    break;
+            }
         }
     }
 
@@ -162,42 +170,43 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
-            Intent enhanceIntent = null;
-            switch (requestCode) {
-                case TAKE_PHOTO:
-                    if (mImagePath != null) {
-                        Log.e(TAG, "mImagePath = " + mImagePath);
-                        enhanceIntent = new Intent(MainActivity.this, EnhanceActivity.class);
-                        enhanceIntent.putExtra("imagePath", mImagePath);
-                        startActivity(enhanceIntent);
-                    }
-                    break;
-                case PICK_PHOTO:
-                    Uri pickUri = data.getData();
-                    String photoPath = getAlbumPhoto(pickUri);
-                    Log.e(TAG,"photoPath = " + photoPath);
-                    enhanceIntent = new Intent(MainActivity.this, EnhanceActivity.class);
-                    enhanceIntent.putExtra("imagePath", photoPath);
-                    startActivity(enhanceIntent);
-                    break;
-                case IMAGE_EDIT:
-                    Uri editUri = data.getData();
-                    String editPath = getAlbumPhoto(editUri);
-                    Log.e(TAG,"editPath = " + editPath);
-                    Intent editIntent = new Intent(MainActivity.this, GraffitiActivity.class);
-                    editIntent.putExtra("imagePath", editPath);
-                    startActivity(editIntent);
-                    break;
-                case IMAGE_FILTER:
-                    Uri filterUri = data.getData();
-                    String filterPath = getAlbumPhoto(filterUri);
-                    Log.e(TAG,"filterPath = " + filterPath);
-                    Intent filterIntent = new Intent(MainActivity.this, FilterActivity.class);
-                    filterIntent.putExtra("imagePath", filterPath);
-                    startActivity(filterIntent);
-                    break;
-                case IMAGE_CUT:
-                    
+            if (requestCode == TAKE_PHOTO) {
+                if (mImagePath != null) {
+                    Log.e(TAG, "mImagePath = " + mImagePath);
+                    Intent intent = new Intent(MainActivity.this, EnhanceActivity.class);
+                    intent.putExtra("imagePath", mImagePath);
+                    startActivity(intent);
+                }
+            } else {
+                Intent intent = new Intent();
+                Uri uri = data.getData();
+                String imagePath = getAlbumPhoto(uri);
+                Log.e(TAG, "imagePath = " + imagePath);
+                intent.putExtra("imagePath", imagePath);
+                switch (requestCode) {
+                    case PICK_PHOTO:
+                        intent.setClass(MainActivity.this,EnhanceActivity.class);
+                        break;
+                    case IMAGE_GRAFFITI:
+                        intent.setClass(MainActivity.this, GraffitiActivity.class);
+                        break;
+                    case IMAGE_FILTER:
+                        intent.setClass(MainActivity.this, FilterActivity.class);
+                        break;
+                    case IMAGE_CUT:
+                        intent.setClass(MainActivity.this, FilterActivity.class);
+                        break;
+                    case IMAGE_ROTATE:
+                        intent.setClass(MainActivity.this, RotateActivity.class);
+                        break;
+                    case IMAGE_FRAME:
+                        intent.setClass(MainActivity.this, FilterActivity.class);
+                        break;
+                    case IMAGE_COMIC:
+                        intent.setClass(MainActivity.this, FilterActivity.class);
+                        break;
+                }
+                startActivity(intent);
             }
         }
     }
