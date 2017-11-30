@@ -33,6 +33,7 @@ public class FilterActivity extends Activity implements View.OnClickListener {
     private LinearLayout filterNegative;
     private LinearLayout filterSaturation;
     private LinearLayout filterRelief;
+    private LinearLayout filterSketch;
 
 
     private Bitmap newBitmap;
@@ -54,7 +55,7 @@ public class FilterActivity extends Activity implements View.OnClickListener {
         mImageView = (ImageView) findViewById(R.id.pictureShow);
         mImageView.setImageBitmap(mBitmap);
 
-        newBitmap = mBitmap;
+        newBitmap = BitmapFactory.decodeFile(mImagePath, option);;
         initFiltersView();
     }
 
@@ -81,8 +82,10 @@ public class FilterActivity extends Activity implements View.OnClickListener {
                         filterType.getFilterFloat(FilterType.FILTER_SATURATION)));
                 break;
             case R.id.filter_relief:
-                mImageView.setImageBitmap(Filters.doFilter(newBitmap,
-                        filterType.getFilterFloat(FilterType.FILTER_RELIEF)));
+                mImageView.setImageBitmap(Filters.relief(newBitmap));
+                break;
+            case R.id.filter_sketch:
+                mImageView.setImageBitmap(Filters.testGaussBlur(newBitmap,10,10/3));
                 break;
 
             /*case R.id.btn_cancel :
@@ -124,6 +127,9 @@ public class FilterActivity extends Activity implements View.OnClickListener {
 
         filterRelief = (LinearLayout) findViewById(R.id.filter_relief);
         filterRelief.setOnClickListener(this);
+
+        filterSketch = (LinearLayout) findViewById(R.id.filter_sketch);
+        filterSketch.setOnClickListener(this);
 
     }
 

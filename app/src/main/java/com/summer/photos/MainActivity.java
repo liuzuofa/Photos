@@ -13,6 +13,7 @@ import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static final int IMAGE_FRAME = 8;
     public static final int IMAGE_COMIC = 9;
 
+    private Toolbar toolbar;
     private ImageView mImageView;
     private CardView mCamera;
     private CardView mAlbum;
@@ -59,6 +61,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initView() {
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("Photos");
+        setSupportActionBar(toolbar);
+
         mImageView = (ImageView) findViewById(R.id.image_view);
         mCamera = (CardView) findViewById(R.id.camera);
         mCamera.setOnClickListener(this);
