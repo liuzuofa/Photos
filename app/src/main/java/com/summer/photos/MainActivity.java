@@ -62,7 +62,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void initView() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("Photos");
         setSupportActionBar(toolbar);
 
         mImageView = (ImageView) findViewById(R.id.image_view);
@@ -209,7 +208,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         intent.setClass(MainActivity.this, FilterActivity.class);
                         break;
                     case IMAGE_COMIC:
-                        intent.setClass(MainActivity.this, FilterActivity.class);
+                        intent.setClass(MainActivity.this, ShareActivity.class);
                         break;
                 }
                 startActivity(intent);

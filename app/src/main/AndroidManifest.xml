@@ -12,9 +12,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".MainActivity"
-            android:label="Photos">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -37,7 +35,8 @@
         <activity android:name=".FilterActivity" />
         <activity android:name=".GraffitiActivity" />
         <activity android:name=".FrameActivity" />
-        <activity android:name=".RotateActivity"></activity>
+        <activity android:name=".RotateActivity" />
+        <activity android:name=".ShareActivity"></activity>
     </application>
 
 </manifest>
