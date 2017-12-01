@@ -1,10 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#cccccc"
+    android:background="#EFEFEF"
     android:orientation="vertical">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:gravity="right"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <ImageView
+                android:id="@+id/img_back"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/btn_back" />
+
+            <Button
+                android:id="@+id/btn_save"
+                android:layout_width="50dp"
+                android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/circle_button"
+                android:text="保存" />
+        </RelativeLayout>
+
+    </android.support.v7.widget.Toolbar>
 
     <ImageView
         android:id="@+id/enhancePicture"
@@ -18,14 +53,20 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:background="#ffffff"
-        android:orientation="vertical">
+        android:background="#FFFFFF"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_height="30dp"
             android:gravity="center_vertical">
 
             <TextView
@@ -33,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="饱和度"
-                android:textSize="13sp" />
+                android:textSize="14sp" />
 
             <SeekBar
                 android:id="@+id/saturation"
@@ -48,16 +89,15 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_height="30dp"
             android:gravity="center_vertical">
 
             <TextView
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="亮   度"
-                android:textSize="13sp" />
+                android:text="亮    度"
+                android:textSize="14sp" />
 
             <SeekBar
                 android:id="@+id/brightness"
@@ -71,8 +111,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_height="30dp"
             android:gravity="center_vertical">
 
             <TextView
@@ -80,7 +119,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="对比度"
-                android:textSize="13sp" />
+                android:textSize="14sp" />
 
             <SeekBar
                 android:id="@+id/contrast"
@@ -91,5 +130,39 @@
                 android:max="255"
                 android:progress="128" />
         </LinearLayout>
+
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/img_cancel"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:src="@drawable/bottom_cancel" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="调整"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/img_submit"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:src="@drawable/bottom_submit" />
+    </LinearLayout>
+
+
 </LinearLayout>

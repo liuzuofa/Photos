@@ -186,7 +186,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Intent intent = new Intent();
                 Uri uri = data.getData();
                 String imagePath = getAlbumPhoto(uri);
-                Log.e(TAG, "imagePath = " + imagePath);
+                //Log.e(TAG, "imagePath = " + imagePath);
                 intent.putExtra("imagePath", imagePath);
                 switch (requestCode) {
                     case PICK_PHOTO:

@@ -2,6 +2,8 @@ package com.summer.photos;
 
 import android.content.ComponentName;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.support.v4.content.FileProvider;
@@ -10,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,15 +20,21 @@ import java.util.ArrayList;
 
 public class ShareActivity extends AppCompatActivity {
 
+    private ImageView imageView;
     private Button shareButton;
     private String imagePath;
+    private Bitmap bitmap;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_share);
 
         Intent intent = getIntent();
-        imagePath = intent.getStringExtra("imagePath");
+        imagePath = intent.getStringExtra("savePath");
+        bitmap = BitmapFactory.decodeFile(imagePath);
+
+        imageView = (ImageView) findViewById(R.id.share_img);
+        imageView.setImageBitmap(bitmap);
 
         shareButton = (Button) findViewById(R.id.share);
         shareButton.setOnClickListener(new View.OnClickListener() {

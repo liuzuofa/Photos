@@ -23,36 +23,51 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
 import com.summer.photos.enhance.PhotoEnhance;
 import com.summer.photos.utils.FileUtils;
+import com.summer.photos.utils.PhotoUtils;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * 增强
  *
  * @author summer
  */
-public class EnhanceActivity extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener {
+public class EnhanceActivity extends AppCompatActivity implements
+        View.OnClickListener, SeekBar.OnSeekBarChangeListener {
 
     private static final String TAG = "EnhanceActivity";
+    private Toolbar toolbar;
     private ImageView pictureShow;
-    private SeekBar saturationSeekBar, brightnessSeekBar, contrastSeekBar;
+    private SeekBar saturationSeekBar;
+    private SeekBar brightnessSeekBar;
+    private SeekBar contrastSeekBar;
+    private ImageView back;
+    private Button save;
     private Bitmap bitmapSrc;
     private PhotoEnhance pe;
     private int mProgress = 0;
     private Bitmap bit = null;
-    private static final int WRITE_PERMISSION = 1;
     private String imgPath;
 
     @Override
@@ -69,7 +84,8 @@ public class EnhanceActivity extends AppCompatActivity implements SeekBar.OnSeek
     }
 
     private void initView() {
-
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         pictureShow = (ImageView) findViewById(R.id.enhancePicture);
 
         saturationSeekBar = (SeekBar) findViewById(R.id.saturation);
@@ -80,6 +96,11 @@ public class EnhanceActivity extends AppCompatActivity implements SeekBar.OnSeek
 
         contrastSeekBar = (SeekBar) findViewById(R.id.contrast);
         contrastSeekBar.setOnSeekBarChangeListener(this);
+
+        back = (ImageView) findViewById(R.id.img_back);
+        back.setOnClickListener(this);
+        save = (Button) findViewById(R.id.btn_save);
+        save.setOnClickListener(this);
 
         pe = new PhotoEnhance(bitmapSrc);
 
@@ -95,18 +116,15 @@ public class EnhanceActivity extends AppCompatActivity implements SeekBar.OnSeek
             case R.id.saturation:
                 pe.setSaturation(mProgress);
                 type = pe.Enhance_Saturation;
-
                 break;
             case R.id.brightness:
                 pe.setBrightness(mProgress);
                 type = pe.Enhance_Brightness;
-
                 break;
 
             case R.id.contrast:
                 pe.setContrast(mProgress);
                 type = pe.Enhance_Contrast;
-
                 break;
 
             default:
@@ -129,49 +147,26 @@ public class EnhanceActivity extends AppCompatActivity implements SeekBar.OnSeek
 
     }
 
-    /*@Override
-    public void onClick(View view) {
-        switch (view.getId())
-        {
-
-            case R.id.btn_ok :
-
-                FileUtils.writeImage(bit, imgPath, 100);
-                Intent okData = new Intent();
-                okData.putExtra("camera_path", imgPath);
-                setResult(RESULT_OK, okData);
-                recycle();
-                this.finish();
-                break;
-
-            case R.id.btn_cancel :
-
-                Intent cancelData = new Intent();
-                setResult(RESULT_CANCELED, cancelData);
-                recycle();
-                this.finish();
-                break;
-
-            default :
-                break;
-        }
-    }*/
-
-    private void recycle() {
-        if (bitmapSrc != null) {
-            bitmapSrc.recycle();
-            bitmapSrc = null;
-        }
-
-        if (bit != null) {
-            bit.recycle();
-            bit = null;
-        }
-    }
-
     @Override
-    protected void onPause() {
-        recycle();
-        super.onPause();
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.img_back:
+                this.finish();
+                break;
+
+            case R.id.btn_save:
+                if (bit == null && bitmapSrc != null) {
+                    bit = bitmapSrc;
+                }
+                String savePath = PhotoUtils.saveBitmap(bit);
+                Intent intent = new Intent();
+                intent.setClass(EnhanceActivity.this, ShareActivity.class);
+                intent.putExtra("savePath", savePath);
+                startActivity(intent);
+                break;
+            default:
+                break;
+        }
     }
+
 }
