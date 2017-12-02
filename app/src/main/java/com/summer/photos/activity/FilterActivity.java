@@ -1,16 +1,18 @@
-package com.summer.photos;
+package com.summer.photos.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.summer.photos.R;
 import com.summer.photos.filters.FilterType;
 import com.summer.photos.filters.Filters;
+import com.summer.photos.utils.PhotoUtils;
 
 
 /**
@@ -18,9 +20,12 @@ import com.summer.photos.filters.Filters;
  *
  * @author summer
  */
-public class FilterActivity extends Activity implements View.OnClickListener {
+public class FilterActivity extends BaseActivity implements View.OnClickListener {
 
     private final String TAG = "FilterActivity";
+
+    private ImageView imgBack;
+    private Button btnSave;
 
     private ImageView mImageView;
     private String mImagePath = null;
@@ -52,40 +57,57 @@ public class FilterActivity extends Activity implements View.OnClickListener {
         option.inSampleSize = 1;
         mBitmap = BitmapFactory.decodeFile(mImagePath, option);
 
+        imgBack = (ImageView) findViewById(R.id.filter_img_back);
+        imgBack.setOnClickListener(this);
+        btnSave = (Button) findViewById(R.id.filter_btn_save);
+        btnSave.setOnClickListener(this);
+
         mImageView = (ImageView) findViewById(R.id.pictureShow);
         mImageView.setImageBitmap(mBitmap);
 
-        newBitmap = BitmapFactory.decodeFile(mImagePath, option);;
+        newBitmap = mBitmap;
         initFiltersView();
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.filter_img_back:
+                finish();
+                break;
+            case R.id.filter_btn_save:
+                String savePath = PhotoUtils.saveBitmap(newBitmap);
+                Intent intent = new Intent();
+                intent.setClass(FilterActivity.this, ShareActivity.class);
+                intent.putExtra("savePath", savePath);
+                startActivity(intent);
+                break;
             case R.id.filter_before:
                 mImageView.setImageBitmap(mBitmap);
                 break;
             case R.id.filter_gray:
-                mImageView.setImageBitmap(Filters.doFilter(newBitmap,
-                        filterType.getFilterFloat(FilterType.FILTER_GRAY)));
+                newBitmap = Filters.doFilter(mBitmap, filterType.getFilterFloat(FilterType.FILTER_GRAY));
+                mImageView.setImageBitmap(newBitmap);
                 break;
             case R.id.filter_nostalgic:
-                mImageView.setImageBitmap(Filters.doFilter(newBitmap,
-                        filterType.getFilterFloat(FilterType.FILTER_NOSTALGIC)));
+                newBitmap = Filters.doFilter(mBitmap, filterType.getFilterFloat(FilterType.FILTER_NOSTALGIC));
+                mImageView.setImageBitmap(newBitmap);
                 break;
             case R.id.filter_negative:
-                mImageView.setImageBitmap(Filters.doFilter(newBitmap,
-                        filterType.getFilterFloat(FilterType.FILTER_NEGATIVE)));
+                newBitmap = Filters.doFilter(mBitmap, filterType.getFilterFloat(FilterType.FILTER_NEGATIVE));
+                mImageView.setImageBitmap(newBitmap);
                 break;
             case R.id.filter_saturation:
-                mImageView.setImageBitmap(Filters.doFilter(newBitmap,
-                        filterType.getFilterFloat(FilterType.FILTER_SATURATION)));
+                newBitmap = Filters.doFilter(mBitmap, filterType.getFilterFloat(FilterType.FILTER_SATURATION));
+                mImageView.setImageBitmap(newBitmap);
                 break;
             case R.id.filter_relief:
-                mImageView.setImageBitmap(Filters.relief(newBitmap));
+                newBitmap = Filters.relief(mBitmap);
+                mImageView.setImageBitmap(newBitmap);
                 break;
             case R.id.filter_sketch:
-                mImageView.setImageBitmap(Filters.testGaussBlur(newBitmap,10,10/3));
+                newBitmap = Filters.testGaussBlur(mBitmap,10,10/3);
+                mImageView.setImageBitmap(newBitmap);
                 break;
 
             /*case R.id.btn_cancel :
@@ -143,7 +165,11 @@ public class FilterActivity extends Activity implements View.OnClickListener {
             newBitmap.recycle();
             newBitmap = null;
         }
-
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        recycle();
+    }
 }

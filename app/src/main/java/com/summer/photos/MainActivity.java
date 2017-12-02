@@ -10,7 +10,6 @@ import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
@@ -19,10 +18,17 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.summer.photos.activity.BaseActivity;
+import com.summer.photos.activity.EnhanceActivity;
+import com.summer.photos.activity.FilterActivity;
+import com.summer.photos.activity.GraffitiActivity;
+import com.summer.photos.activity.RotateActivity;
+import com.summer.photos.activity.ShareActivity;
+
 import java.io.File;
 import java.io.IOException;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private final String TAG = "MainActivity";
     private final String[] mPermission = {

@@ -19,7 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".EnhanceActivity" />
+        <activity android:name=".activity.EnhanceActivity" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -32,11 +32,11 @@
         </provider>
 
         <activity android:name=".TestActivity" />
-        <activity android:name=".FilterActivity" />
-        <activity android:name=".GraffitiActivity" />
-        <activity android:name=".FrameActivity" />
-        <activity android:name=".RotateActivity" />
-        <activity android:name=".ShareActivity"></activity>
+        <activity android:name=".activity.FilterActivity" />
+        <activity android:name=".activity.GraffitiActivity" />
+        <activity android:name=".activity.FrameActivity" />
+        <activity android:name=".activity.RotateActivity" />
+        <activity android:name=".activity.ShareActivity"></activity>
     </application>
 
 </manifest>

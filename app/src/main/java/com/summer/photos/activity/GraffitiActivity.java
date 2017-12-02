@@ -1,35 +1,40 @@
-package com.summer.photos;
+package com.summer.photos.activity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.text.Layout;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.summer.photos.R;
 import com.summer.photos.draw.CircleButton;
 import com.summer.photos.draw.DrawView;
+import com.summer.photos.utils.PhotoUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import static com.summer.photos.R.id.graffiti_btn_save;
+
 /**
  * Created by zuofa.liu on 17-11-21.
  */
-public class GraffitiActivity extends AppCompatActivity implements View.OnClickListener {
+public class GraffitiActivity extends BaseActivity implements View.OnClickListener {
 
 
     private LinearLayout colorLayout;
     private LinearLayout sizeLayout;
+
+    private ImageView imgBack;
+    private Button btnSave;
 
     private DrawView drawView;
     private CircleButton redCircle;
@@ -71,6 +76,11 @@ public class GraffitiActivity extends AppCompatActivity implements View.OnClickL
         mBitmap = BitmapFactory.decodeFile(mImagePath, option);
         newBitmap = mBitmap;
 
+        imgBack = (ImageView) findViewById(R.id.graffiti_img_back);
+        imgBack.setOnClickListener(this);
+        btnSave = (Button) findViewById(graffiti_btn_save);
+        btnSave.setOnClickListener(this);
+
         colorLayout = (LinearLayout) findViewById(R.id.color_layout);
         sizeLayout = (LinearLayout) findViewById(R.id.size_layout);
         cancel = (Button) findViewById(R.id.cancel);
@@ -78,6 +88,7 @@ public class GraffitiActivity extends AppCompatActivity implements View.OnClickL
         submit = (Button) findViewById(R.id.submit);
         submit.setOnClickListener(this);
         drawView = (DrawView) findViewById(R.id.draw_view);
+        //drawView.setBackground();
 
         redCircle = (CircleButton) findViewById(R.id.red_circle);
         redCircle.setOnClickListener(this);
@@ -138,6 +149,16 @@ public class GraffitiActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.graffiti_img_back:
+                finish();
+                break;
+            case R.id.graffiti_btn_save:
+                String savePath = PhotoUtils.saveBitmap(drawView.getBitmap());
+                Intent intent = new Intent();
+                intent.setClass(GraffitiActivity.this, ShareActivity.class);
+                intent.putExtra("savePath", savePath);
+                startActivity(intent);
+                break;
             case R.id.red_circle:
                 setDefaultCircleSize();
                 redCircle.setCircleSize(50);

@@ -1,15 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/layout_filter"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#cccccc">
+    android:background="#EFEFEF">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:gravity="right"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingRight="10dp">
+
+            <ImageView
+                android:id="@+id/filter_img_back"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/btn_back" />
+
+            <Button
+                android:id="@+id/filter_btn_save"
+                android:layout_width="50dp"
+                android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/circle_button"
+                android:text="保存" />
+        </RelativeLayout>
+
+    </android.support.v7.widget.Toolbar>
 
     <RelativeLayout
         android:id="@+id/picture"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/filtersSV">
+        android:layout_above="@+id/filtersSV"
+        android:layout_below="@+id/toolbar"
+        android:padding="10dp">
 
         <ImageView
             android:id="@+id/pictureShow"
@@ -23,8 +61,10 @@
     <HorizontalScrollView
         android:id="@+id/filtersSV"
         android:layout_width="wrap_content"
-        android:layout_height="100dp"
+        android:layout_height="80dp"
         android:layout_alignParentBottom="true"
+        android:background="#FFFFFF"
+        android:paddingTop="5dp"
         android:scrollbars="none">
 
         <LinearLayout
@@ -44,16 +84,17 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:src="@drawable/icon_auto" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
                     android:text="原图"
                     android:textColor="#000000"
-                    android:textSize="18sp" />
+                    android:textSize="12sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -66,18 +107,18 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:src="@drawable/icon_auto" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
                     android:text="灰色"
                     android:textColor="#000000"
-                    android:textSize="18sp" />
+                    android:textSize="12sp" />
             </LinearLayout>
-
 
 
             <LinearLayout
@@ -90,16 +131,17 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:src="@drawable/icon_auto" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
                     android:text="怀旧"
                     android:textColor="#000000"
-                    android:textSize="18sp" />
+                    android:textSize="12sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -112,16 +154,17 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:src="@drawable/icon_auto" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
                     android:text="去色"
                     android:textColor="#000000"
-                    android:textSize="18sp" />
+                    android:textSize="12sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -134,16 +177,17 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:src="@drawable/icon_auto" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
                     android:text="饱和"
                     android:textColor="#000000"
-                    android:textSize="18sp" />
+                    android:textSize="12sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -156,16 +200,17 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:src="@drawable/icon_auto" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
                     android:text="浮雕"
                     android:textColor="#000000"
-                    android:textSize="18sp" />
+                    android:textSize="12sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -178,16 +223,17 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:src="@drawable/icon_auto" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
                     android:text="素描"
                     android:textColor="#000000"
-                    android:textSize="18sp" />
+                    android:textSize="12sp" />
             </LinearLayout>
 
         </LinearLayout>

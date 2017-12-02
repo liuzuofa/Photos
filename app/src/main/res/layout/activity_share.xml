@@ -5,7 +5,41 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.summer.photos.ShareActivity">
+    tools:context=".activity.ShareActivity">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:gravity="right"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <ImageView
+                android:id="@+id/share_img_back"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/btn_back" />
+
+            <Button
+                android:id="@+id/share_btn_complete"
+                android:layout_width="50dp"
+                android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/circle_button"
+                android:text="完成" />
+        </RelativeLayout>
+
+    </android.support.v7.widget.Toolbar>
 
     <ImageView
         android:id="@+id/share_img"
@@ -13,10 +47,10 @@
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-    <Button
-        android:id="@+id/share"
+    <ImageView
+        android:id="@+id/share_wechatmoments"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="send" />
+        android:src="@drawable/share_wechatmoments" />
 
 </LinearLayout>

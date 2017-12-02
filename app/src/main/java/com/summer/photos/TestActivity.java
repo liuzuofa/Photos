@@ -7,11 +7,12 @@ import android.graphics.Canvas;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
 
-public class TestActivity extends AppCompatActivity {
+import com.summer.photos.activity.BaseActivity;
+
+public class TestActivity extends BaseActivity {
 
     private ImageView before;
     private ImageView after;

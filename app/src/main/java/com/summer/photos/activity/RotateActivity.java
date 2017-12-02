@@ -1,21 +1,25 @@
-package com.summer.photos;
+package com.summer.photos.activity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
-public class RotateActivity extends AppCompatActivity implements View.OnClickListener {
+import com.summer.photos.R;
+import com.summer.photos.utils.PhotoUtils;
+
+public class RotateActivity extends BaseActivity implements View.OnClickListener {
 
     private String mImagePath;
     private Bitmap mBitmap;
     private Bitmap newBitmap;
 
+    private ImageView imgBack;
+    private Button btnSave;
     private ImageView mImageView;
     private Button upDown;
     private Button leftRight;
@@ -37,6 +41,11 @@ public class RotateActivity extends AppCompatActivity implements View.OnClickLis
         mBitmap = BitmapFactory.decodeFile(mImagePath, option);
         newBitmap = mBitmap;
 
+        imgBack = (ImageView) findViewById(R.id.rotate_img_back);
+        imgBack.setOnClickListener(this);
+        btnSave = (Button) findViewById(R.id.rotate_btn_save);
+        btnSave.setOnClickListener(this);
+
         mImageView = (ImageView) findViewById(R.id.rotate_image);
         mImageView.setImageBitmap(mBitmap);
 
@@ -56,6 +65,16 @@ public class RotateActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.rotate_img_back:
+                finish();
+                break;
+            case R.id.rotate_btn_save:
+                String savePath = PhotoUtils.saveBitmap(newBitmap);
+                Intent intent = new Intent();
+                intent.setClass(RotateActivity.this, ShareActivity.class);
+                intent.putExtra("savePath", savePath);
+                startActivity(intent);
+                break;
             case R.id.btn_rotate:
                 newBitmap = rotateImage(newBitmap, 90);
                 mImageView.setImageBitmap(newBitmap);

@@ -1,9 +1,10 @@
-package com.summer.photos;
+package com.summer.photos.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class FrameActivity extends AppCompatActivity {
+import com.summer.photos.R;
+
+public class FrameActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

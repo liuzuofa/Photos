@@ -14,46 +14,28 @@
  * limitations under the License.
  *
  */
-package com.summer.photos;
+package com.summer.photos.activity;
 
-import android.Manifest;
-import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.os.Environment;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.SeekBar;
-import android.widget.Toast;
 
+import com.summer.photos.R;
 import com.summer.photos.enhance.PhotoEnhance;
-import com.summer.photos.utils.FileUtils;
 import com.summer.photos.utils.PhotoUtils;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 /**
- * 增强
+ * 图像增强
  *
  * @author summer
  */
-public class EnhanceActivity extends AppCompatActivity implements
+public class EnhanceActivity extends BaseActivity implements
         View.OnClickListener, SeekBar.OnSeekBarChangeListener {
 
     private static final String TAG = "EnhanceActivity";
