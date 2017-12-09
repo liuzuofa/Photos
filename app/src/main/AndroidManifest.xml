@@ -36,7 +36,8 @@
         <activity android:name=".activity.GraffitiActivity" />
         <activity android:name=".activity.FrameActivity" />
         <activity android:name=".activity.RotateActivity" />
-        <activity android:name=".activity.ShareActivity"></activity>
+        <activity android:name=".activity.ShareActivity" />
+        <activity android:name=".activity.WatermarkActivity"></activity>
     </application>
 
 </manifest>

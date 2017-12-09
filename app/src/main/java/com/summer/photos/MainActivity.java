@@ -24,6 +24,7 @@ import com.summer.photos.activity.FilterActivity;
 import com.summer.photos.activity.GraffitiActivity;
 import com.summer.photos.activity.RotateActivity;
 import com.summer.photos.activity.ShareActivity;
+import com.summer.photos.activity.WatermarkActivity;
 
 import java.io.File;
 import java.io.IOException;
@@ -214,7 +215,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                         intent.setClass(MainActivity.this, FilterActivity.class);
                         break;
                     case IMAGE_COMIC:
-                        intent.setClass(MainActivity.this, ShareActivity.class);
+                        intent.setClass(MainActivity.this, WatermarkActivity.class);
                         break;
                 }
                 startActivity(intent);
