@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.summer.photos.activity.BaseActivity;
 import com.summer.photos.activity.EnhanceActivity;
 import com.summer.photos.activity.FilterActivity;
+import com.summer.photos.activity.FrameActivity;
 import com.summer.photos.activity.GraffitiActivity;
 import com.summer.photos.activity.RotateActivity;
 import com.summer.photos.activity.ShareActivity;
@@ -212,7 +213,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                         intent.setClass(MainActivity.this, RotateActivity.class);
                         break;
                     case IMAGE_FRAME:
-                        intent.setClass(MainActivity.this, FilterActivity.class);
+                        intent.setClass(MainActivity.this, FrameActivity.class);
                         break;
                     case IMAGE_COMIC:
                         intent.setClass(MainActivity.this, WatermarkActivity.class);
