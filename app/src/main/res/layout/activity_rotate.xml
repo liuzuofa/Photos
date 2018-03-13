@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#EFEFEF"
     tools:context=".activity.RotateActivity">
 
     <android.support.v7.widget.Toolbar
@@ -57,8 +58,10 @@
     <LinearLayout
         android:id="@+id/menu_bottom"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="80dp"
         android:layout_alignParentBottom="true"
+        android:background="#FFFFFF"
+        android:gravity="center"
         android:orientation="horizontal">
 
         <Button

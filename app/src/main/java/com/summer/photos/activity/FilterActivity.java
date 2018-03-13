@@ -15,11 +15,6 @@ import com.summer.photos.filters.Filters;
 import com.summer.photos.utils.PhotoUtils;
 
 
-/**
- * 滤镜
- *
- * @author summer
- */
 public class FilterActivity extends BaseActivity implements View.OnClickListener {
 
     private final String TAG = "FilterActivity";

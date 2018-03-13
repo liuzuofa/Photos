@@ -1,16 +1,21 @@
 package com.summer.photos.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.summer.photos.R;
 import com.summer.photos.draw.CircleButton;
@@ -21,12 +26,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static com.summer.photos.R.id.graffiti_btn_save;
 
-/**
- * Created by zuofa.liu on 17-11-21.
- */
 public class GraffitiActivity extends BaseActivity implements View.OnClickListener {
 
 
@@ -51,11 +55,9 @@ public class GraffitiActivity extends BaseActivity implements View.OnClickListen
     private CircleButton bigCircle;
     private CircleButton moreBigCircle;
 
-    private Button cancel;
-    private Button submit;
     private CircleButton color;
     private CircleButton size;
-    private CircleButton revoke;
+    private ImageView revoke;
 
     private String mImagePath;
     private Bitmap mBitmap;
@@ -83,16 +85,12 @@ public class GraffitiActivity extends BaseActivity implements View.OnClickListen
 
         colorLayout = (LinearLayout) findViewById(R.id.color_layout);
         sizeLayout = (LinearLayout) findViewById(R.id.size_layout);
-        cancel = (Button) findViewById(R.id.cancel);
-        cancel.setOnClickListener(this);
-        submit = (Button) findViewById(R.id.submit);
-        submit.setOnClickListener(this);
         drawView = (DrawView) findViewById(R.id.draw_view);
-        //drawView.setBackground();
 
         redCircle = (CircleButton) findViewById(R.id.red_circle);
         redCircle.setOnClickListener(this);
         redCircle.setColor(Color.RED);
+        redCircle.setCircleSize(50);
 
         yellowCircle = (CircleButton) findViewById(R.id.yellow_circle);
         yellowCircle.setOnClickListener(this);
@@ -109,7 +107,6 @@ public class GraffitiActivity extends BaseActivity implements View.OnClickListen
         blackCircle = (CircleButton) findViewById(R.id.black_circle);
         blackCircle.setOnClickListener(this);
         blackCircle.setColor(Color.BLACK);
-        blackCircle.setCircleSize(50);
 
         magentaCircle = (CircleButton) findViewById(R.id.magenta_circle);
         magentaCircle.setOnClickListener(this);
@@ -135,15 +132,18 @@ public class GraffitiActivity extends BaseActivity implements View.OnClickListen
         moreBigCircle.setOnClickListener(this);
 
         color = (CircleButton) findViewById(R.id.color);
+        color.setColor(Color.RED);
         color.setOnClickListener(this);
 
         size = (CircleButton) findViewById(R.id.size);
         size.setOnClickListener(this);
 
-        revoke = (CircleButton) findViewById(R.id.revoke);
+        revoke = (ImageView) findViewById(R.id.revoke);
         revoke.setOnClickListener(this);
+
         drawView.setBitmap(newBitmap);
-        //drawView.setBackground();
+        //drawView.setImageBitmap(newBitmap);
+        drawView.setBackground(new BitmapDrawable(newBitmap));
     }
 
     @Override
@@ -160,36 +160,43 @@ public class GraffitiActivity extends BaseActivity implements View.OnClickListen
                 startActivity(intent);
                 break;
             case R.id.red_circle:
+                color.setColor(Color.RED);
                 setDefaultCircleSize();
                 redCircle.setCircleSize(50);
                 drawView.setPainColor(Color.RED);
                 break;
             case R.id.yellow_circle:
+                color.setColor(Color.YELLOW);
                 setDefaultCircleSize();
                 yellowCircle.setCircleSize(50);
                 drawView.setPainColor(Color.YELLOW);
                 break;
             case R.id.green_circle:
+                color.setColor(Color.GREEN);
                 setDefaultCircleSize();
                 greenCircle.setCircleSize(50);
                 drawView.setPainColor(Color.GREEN);
                 break;
             case R.id.blue_circle:
+                color.setColor(Color.BLUE);
                 setDefaultCircleSize();
                 blueCircle.setCircleSize(50);
                 drawView.setPainColor(Color.BLUE);
                 break;
             case R.id.black_circle:
+                color.setColor(Color.BLACK);
                 setDefaultCircleSize();
                 blackCircle.setCircleSize(50);
                 drawView.setPainColor(Color.BLACK);
                 break;
             case R.id.magenta_circle:
+                color.setColor(Color.MAGENTA);
                 setDefaultCircleSize();
                 magentaCircle.setCircleSize(50);
                 drawView.setPainColor(Color.MAGENTA);
                 break;
             case R.id.gray_circle:
+                color.setColor(Color.GRAY);
                 setDefaultCircleSize();
                 grayCircle.setCircleSize(50);
                 drawView.setPainColor(Color.GRAY);
@@ -219,22 +226,20 @@ public class GraffitiActivity extends BaseActivity implements View.OnClickListen
                 moreBigCircle.setColor(0xFF00FFFF);
                 drawView.setPaintSize(50);
                 break;
-            case R.id.cancel:
-                break;
             case R.id.color:
                 size.setColor(0xFFBFBFBF);
+                color.setColor(0xFFFF0000);
                 colorLayout.setVisibility(View.VISIBLE);
                 sizeLayout.setVisibility(View.GONE);
                 break;
             case R.id.size:
+                color.setColor(0xFFBFBFBF);
                 size.setColor(0xFF00FFFF);
                 colorLayout.setVisibility(View.GONE);
                 sizeLayout.setVisibility(View.VISIBLE);
                 break;
             case R.id.revoke:
                 drawView.revoke();
-                break;
-            case R.id.submit:
                 break;
         }
     }
@@ -256,6 +261,7 @@ public class GraffitiActivity extends BaseActivity implements View.OnClickListen
         bigCircle.setColor(0xFFBFBFBF);
         moreBigCircle.setColor(0xFFBFBFBF);
     }
+
 
     private void saveBitmap() {
         File file = new File(Environment.getExternalStorageDirectory(), "/DCIM/img.jpg");

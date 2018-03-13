@@ -16,9 +16,13 @@
  */
 package com.summer.photos.utils;
 
+import android.app.Activity;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.os.Environment;
+import android.util.DisplayMetrics;
+import android.view.View;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -36,14 +40,13 @@ import java.util.Date;
 public class PhotoUtils {
 
     public static String SAVE_PATH = Environment.getExternalStorageDirectory() + "/DCIM/Photos/";
-
     /**
      * @param bitmap 要保存的bitmap
      * @return name 以“.jpg”格式保存至相册的路径
      */
     public static String saveBitmap(Bitmap bitmap) {
 
-        File photosFile = new File(Environment.getExternalStorageDirectory(),"/DCIM/Photos");
+        File photosFile = new File(Environment.getExternalStorageDirectory(), "/DCIM/Photos");
         File file = null;
         if (!photosFile.exists()) {
             photosFile.mkdirs();
@@ -65,8 +68,8 @@ public class PhotoUtils {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        }finally {
-            System.out.println("path = " +path);
+        } finally {
+            System.out.println("path = " + path);
             return path;
         }
     }
@@ -109,6 +112,7 @@ public class PhotoUtils {
 
     /**
      * 图片按照给定的宽高等比缩放
+     *
      * @param bitmap
      * @param width
      * @param height

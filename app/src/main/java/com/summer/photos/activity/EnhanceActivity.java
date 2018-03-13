@@ -30,11 +30,6 @@ import com.summer.photos.R;
 import com.summer.photos.enhance.PhotoEnhance;
 import com.summer.photos.utils.PhotoUtils;
 
-/**
- * 图像增强
- *
- * @author summer
- */
 public class EnhanceActivity extends BaseActivity implements
         View.OnClickListener, SeekBar.OnSeekBarChangeListener {
 

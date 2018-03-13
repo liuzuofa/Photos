@@ -10,20 +10,15 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.summer.photos.utils.PhotoUtils;
-
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by zuofa.liu on 17-11-16.
- */
 public class DrawView extends View {
 
     private Paint mPaint;
     private Path mPath;
     private int paintSzie = 10;
-    private int paintColor = Color.BLACK;
+    private int paintColor = Color.RED;
     private float downX;
     private float downY;
     private float currentX;
@@ -58,17 +53,17 @@ public class DrawView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         if (mBackgroundBitmap != null) {
-            mDrawBitmap = PhotoUtils.scaleBitmap(mBackgroundBitmap, getWidth(), getHeight());
-            if (mDrawBitmap != null) {
-                canvas.drawBitmap(mDrawBitmap, 0, 0, null);
+            //mDrawBitmap = PhotoUtils.scaleBitmap(mBackgroundBitmap, getWidth(), getHeight());
+            //if (mDrawBitmap != null) {
+                //canvas.drawBitmap(mDrawBitmap, 0, 0, null);
                 if (mDrawPathList != null && !mDrawPathList.isEmpty()) {
                     for (DrawPath drawPath : mDrawPathList) {
-                        if (mPath != null && mBackgroundBitmap != null) {
+                        //if (mPath != null && mBackgroundBitmap != null) {
                             canvas.drawPath(drawPath.path, drawPath.paint);
-                        }
+                        //}
                     }
                 }
-            }
+            //}
         }
     }
 

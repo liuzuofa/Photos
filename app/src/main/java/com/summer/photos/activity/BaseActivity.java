@@ -7,9 +7,6 @@ import android.util.Log;
 
 import com.summer.photos.collector.ActivityCollector;
 
-/**
- * Created by zuofa.liu on 17-12-2.
- */
 public class BaseActivity extends AppCompatActivity{
 
     @Override

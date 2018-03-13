@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.summer.photos.draw.DrawView;
 import com.summer.photos.utils.PhotoUtils;
 
 /**
@@ -50,10 +51,6 @@ public class WatermarkView extends View {
         if (mBackgroundBitmap != null) {
             mDrawBitmap = PhotoUtils.scaleBitmap(mBackgroundBitmap, getWidth(), getHeight());
             if (mDrawBitmap != null) {
-                /*canvas.clipRect((getWidth() - mDrawBitmap.getWidth()) / 2,//canvas的显示区域
-                        (getHeight() - mDrawBitmap.getHeight()) / 2,
-                        (getWidth() + mDrawBitmap.getWidth()) / 2,
-                        (getHeight() - mDrawBitmap.getHeight()) / 2);*/
                 canvas.drawBitmap(mDrawBitmap, //绘制背景图
                         (getWidth() - mDrawBitmap.getWidth()) / 2,
                         (getHeight() - mDrawBitmap.getHeight()) / 2, null);
@@ -65,7 +62,7 @@ public class WatermarkView extends View {
                         watermarkPoint.y = defaultPoint.y;
                         isDefaultPoint = false;
                         canvas.drawBitmap(mWatermarkBitmap, defaultPoint.x, defaultPoint.y, null);
-                    }else {
+                    } else {
                         canvas.drawBitmap(mWatermarkBitmap, watermarkPoint.x, watermarkPoint.y, null);
                     }
                 }
@@ -97,16 +94,16 @@ public class WatermarkView extends View {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 Log.e(TAG, "handleSingleTouchManipulateEvent: start");
-                currPoint.x = (int)event.getX();
-                currPoint.y = (int)event.getY();
+                currPoint.x = (int) event.getX();
+                currPoint.y = (int) event.getY();
                 break;
             case MotionEvent.ACTION_MOVE:
                 float moveX = event.getX();
                 float moveY = event.getY();
-                watermarkPoint.x += (int)(moveX - currPoint.x);
-                watermarkPoint.y += (int)(moveY - currPoint.y);
-                currPoint.x = (int)moveX;
-                currPoint.y = (int)moveY;
+                watermarkPoint.x += (int) (moveX - currPoint.x);
+                watermarkPoint.y += (int) (moveY - currPoint.y);
+                currPoint.x = (int) moveX;
+                currPoint.y = (int) moveY;
                 break;
             case MotionEvent.ACTION_UP:
                 Log.e(TAG, "handleSingleTouchManipulateEvent: end");
@@ -141,6 +138,9 @@ public class WatermarkView extends View {
             mWatermarkBitmap = bitmap;
             isDefaultPoint = true;
             invalidate();
+        } else {
+            mWatermarkBitmap = null;
+            invalidate();
         }
     }
 
@@ -163,6 +163,33 @@ public class WatermarkView extends View {
             resizeBmp = bitmap;
         }
         return resizeBmp;
+    }
+
+    /**
+     * 获取绘画bitmap
+     *
+     * @return bitmap
+     */
+    public Bitmap getBitmap() {
+        if (mBackgroundBitmap != null) {
+            Bitmap bitmap = Bitmap.createBitmap(mBackgroundBitmap.getWidth(),
+                    mBackgroundBitmap.getHeight(), Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(bitmap);
+            canvas.drawBitmap(mBackgroundBitmap, 0, 0, null);
+            if (isDefaultPoint) {
+                defaultPoint.x = (getWidth() - mWatermarkBitmap.getWidth()) / 2;
+                defaultPoint.y = (getHeight() - mWatermarkBitmap.getHeight()) / 2;
+                watermarkPoint.x = defaultPoint.x;
+                watermarkPoint.y = defaultPoint.y;
+                isDefaultPoint = false;
+                canvas.drawBitmap(mWatermarkBitmap, defaultPoint.x, defaultPoint.y, null);
+            } else {
+                canvas.drawBitmap(mWatermarkBitmap, watermarkPoint.x, watermarkPoint.y, null);
+            }
+            canvas.save(Canvas.ALL_SAVE_FLAG);
+            return bitmap;
+        }
+        return null;
     }
 
 }
