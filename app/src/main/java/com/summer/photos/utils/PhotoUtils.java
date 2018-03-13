@@ -106,4 +106,32 @@ public class PhotoUtils {
                 bit.getHeight(), matrix, true);
         return tempBitmap;
     }
+
+    /**
+     * 图片按照给定的宽高等比缩放
+     * @param bitmap
+     * @param width
+     * @param height
+     * @return
+     */
+    public static Bitmap scaleBitmap(Bitmap bitmap, int width, int height) {
+        float scale = 0f;
+        int bitmapHeight = bitmap.getHeight();
+        int bitmapWidth = bitmap.getWidth();
+        scale = bitmapHeight > bitmapWidth
+                ? height / (bitmapHeight * 1f)
+                : width / (bitmapWidth * 1f);
+        Bitmap resizeBmp;
+        if (scale != 0) {
+            int bitmapheight = bitmap.getHeight();
+            int bitmapwidth = bitmap.getWidth();
+            Matrix matrix = new Matrix();
+            matrix.postScale(scale, scale); // 长和宽放大缩小的比例
+            resizeBmp = Bitmap.createBitmap(bitmap, 0, 0, bitmapwidth,
+                    bitmapheight, matrix, true);
+        } else {
+            resizeBmp = bitmap;
+        }
+        return resizeBmp;
+    }
 }

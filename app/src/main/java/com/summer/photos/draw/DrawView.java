@@ -10,6 +10,8 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.summer.photos.utils.PhotoUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +30,7 @@ public class DrawView extends View {
     private float currentY;
     private List<DrawPath> mDrawPathList;
     private Bitmap mBackgroundBitmap;
+    private Bitmap mDrawBitmap;
 
     public DrawView(Context context) {
         this(context, null);
@@ -55,11 +58,14 @@ public class DrawView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         if (mBackgroundBitmap != null) {
-            canvas.drawBitmap(mBackgroundBitmap,0,0,null);
-            if (mDrawPathList != null && !mDrawPathList.isEmpty()) {
-                for (DrawPath drawPath : mDrawPathList) {
-                    if (mPath != null && mBackgroundBitmap != null) {
-                        canvas.drawPath(drawPath.path, drawPath.paint);
+            mDrawBitmap = PhotoUtils.scaleBitmap(mBackgroundBitmap, getWidth(), getHeight());
+            if (mDrawBitmap != null) {
+                canvas.drawBitmap(mDrawBitmap, 0, 0, null);
+                if (mDrawPathList != null && !mDrawPathList.isEmpty()) {
+                    for (DrawPath drawPath : mDrawPathList) {
+                        if (mPath != null && mBackgroundBitmap != null) {
+                            canvas.drawPath(drawPath.path, drawPath.paint);
+                        }
                     }
                 }
             }
