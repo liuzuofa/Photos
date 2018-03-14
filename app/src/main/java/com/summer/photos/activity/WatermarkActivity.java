@@ -110,7 +110,6 @@ public class WatermarkActivity extends AppCompatActivity implements View.OnClick
                 intent.setClass(WatermarkActivity.this, ShareActivity.class);
                 intent.putExtra("savePath", savePath);
                 startActivity(intent);
-
             case R.id.original:
                 addpic(-1);
                 break;
