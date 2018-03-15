@@ -24,7 +24,7 @@ public class ShareActivity extends BaseActivity implements View.OnClickListener{
     private ImageView imgBack;
     private Button btnComplete;
     private ImageView imageView;
-    private ImageView shareWechatMoments;
+    private Button shareWechatMoments;
     private String imagePath;
     private Bitmap bitmap;
 
@@ -51,7 +51,7 @@ public class ShareActivity extends BaseActivity implements View.OnClickListener{
         btnComplete = (Button) findViewById(R.id.share_btn_complete);
         btnComplete.setOnClickListener(this);
         imageView = (ImageView) findViewById(R.id.share_img);
-        shareWechatMoments = (ImageView) findViewById(R.id.share_wechatmoments);
+        shareWechatMoments = (Button) findViewById(R.id.share_wechatmoments);
         shareWechatMoments.setOnClickListener(this);
     }
 

@@ -5,11 +5,14 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.summer.photos.R;
+import com.summer.photos.rotate.RotateView;
 import com.summer.photos.utils.PhotoUtils;
 
 public class RotateActivity extends BaseActivity implements View.OnClickListener {
@@ -18,13 +21,20 @@ public class RotateActivity extends BaseActivity implements View.OnClickListener
     private Bitmap mBitmap;
     private Bitmap newBitmap;
 
+    private int initX = 10;
+    private int initY = 10;
+
     private ImageView imgBack;
     private Button btnSave;
-    private ImageView mImageView;
-    private Button upDown;
-    private Button leftRight;
-    private Button reset;
-    private Button rotate;
+    private RotateView mImageView;
+    private LinearLayout rotate;
+    private LinearLayout upDown;
+    private LinearLayout leftRight;
+    private LinearLayout zoom;
+    //private LinearLayout move;
+    private int currentX;
+    private int currentY;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,20 +56,23 @@ public class RotateActivity extends BaseActivity implements View.OnClickListener
         btnSave = (Button) findViewById(R.id.rotate_btn_save);
         btnSave.setOnClickListener(this);
 
-        mImageView = (ImageView) findViewById(R.id.rotate_image);
+        mImageView = (RotateView) findViewById(R.id.rotate_image);
         mImageView.setImageBitmap(mBitmap);
 
-        rotate = (Button) findViewById(R.id.btn_rotate);
+        rotate = (LinearLayout) findViewById(R.id.ll_rotate);
         rotate.setOnClickListener(this);
 
-        reset = (Button) findViewById(R.id.btn_reset);
-        reset.setOnClickListener(this);
-
-        upDown = (Button) findViewById(R.id.btn_updown);
+        upDown = (LinearLayout) findViewById(R.id.ll_updown);
         upDown.setOnClickListener(this);
 
-        leftRight = (Button) findViewById(R.id.btn_leftright);
+        leftRight = (LinearLayout) findViewById(R.id.ll_leftright);
         leftRight.setOnClickListener(this);
+
+        zoom = (LinearLayout) findViewById(R.id.ll_zoom);
+        zoom.setOnClickListener(this);
+
+        /*move = (LinearLayout) findViewById(R.id.ll_move);
+        move.setOnClickListener(this);*/
     }
 
     @Override
@@ -75,22 +88,51 @@ public class RotateActivity extends BaseActivity implements View.OnClickListener
                 intent.putExtra("savePath", savePath);
                 startActivity(intent);
                 break;
-            case R.id.btn_rotate:
+            case R.id.ll_rotate:
                 newBitmap = rotateImage(newBitmap, 90);
                 mImageView.setImageBitmap(newBitmap);
                 break;
-            case R.id.btn_leftright:
+            case R.id.ll_leftright:
                 newBitmap = reverseImage(newBitmap, -1, 1);
                 mImageView.setImageBitmap(newBitmap);
                 break;
-            case R.id.btn_updown:
+            case R.id.ll_updown:
                 newBitmap = reverseImage(newBitmap, 1, -1);
                 mImageView.setImageBitmap(newBitmap);
                 break;
-            case R.id.btn_reset:
-                mImageView.setImageBitmap(mBitmap);
+            case R.id.ll_zoom:
+                /*newBitmap = zoomImage(newBitmap, 0.8f, 0.8f);
+                mImageView.setImageBitmap(newBitmap);*/
+                break;
+            /*case R.id.ll_move:
+                //newBitmap = moveImage(newBitmap, 20, 20);
+                mImageView.setImageBitmap(newBitmap);
+                mImageView.setTranslationX(initX);
+                mImageView.setTranslationY(initY);
+                initX = initX + 10;
+                initY = initY + 10;
+                break;*/
+        }
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                currentX = (int) event.getX();
+                currentY = (int) event.getY();
+                break;
+            case MotionEvent.ACTION_MOVE:
+                int x2 = (int) event.getX();
+                int y2 = (int) event.getY();
+                mImageView.scrollBy(currentX - x2, currentY - y2);
+                currentY = y2;
+                currentX = x2;
+                break;
+            case MotionEvent.ACTION_UP:
                 break;
         }
+        return true;
     }
 
     private Bitmap rotateImage(Bitmap bit, int degrees) {
@@ -104,6 +146,22 @@ public class RotateActivity extends BaseActivity implements View.OnClickListener
     private Bitmap reverseImage(Bitmap bit, int x, int y) {
         Matrix matrix = new Matrix();
         matrix.postScale(x, y);
+        Bitmap tempBitmap = Bitmap.createBitmap(bit, 0, 0, bit.getWidth(),
+                bit.getHeight(), matrix, true);
+        return tempBitmap;
+    }
+
+    private Bitmap zoomImage(Bitmap bit, float x, float y) {
+        Matrix matrix = new Matrix();
+        matrix.postScale(x, y, bit.getWidth() / 2, bit.getHeight() / 2);
+        Bitmap tempBitmap = Bitmap.createBitmap(bit, 0, 0, bit.getWidth(),
+                bit.getHeight(), matrix, true);
+        return tempBitmap;
+    }
+
+    private Bitmap moveImage(Bitmap bit, int x, int y) {
+        Matrix matrix = new Matrix();
+        matrix.setTranslate(x, y);
         Bitmap tempBitmap = Bitmap.createBitmap(bit, 0, 0, bit.getWidth(),
                 bit.getHeight(), matrix, true);
         return tempBitmap;

@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".activity.ShareActivity">
+    android:background="#EFEFEF">
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -41,16 +40,28 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <ImageView
-        android:id="@+id/share_img"
+    <RelativeLayout
+        android:id="@+id/picture"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
-
-    <ImageView
-        android:id="@+id/share_wechatmoments"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/share_wechatmoments" />
+        android:layout_above="@+id/share_wechatmoments"
+        android:layout_below="@+id/toolbar"
+        android:padding="10dp">
 
-</LinearLayout>
+        <ImageView
+            android:id="@+id/share_img"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/share_wechatmoments"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#FFFFFF"
+        android:paddingTop="5dp"
+        android:text="分享朋友圈" />
+
+</RelativeLayout>
