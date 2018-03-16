@@ -49,7 +49,7 @@
         android:layout_below="@+id/toolbar"
         android:padding="10dp">
 
-        <com.summer.photos.draw.DrawView
+        <com.summer.photos.draw.DrawingView
             android:id="@+id/draw_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

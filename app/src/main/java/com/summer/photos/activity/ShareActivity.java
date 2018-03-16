@@ -19,7 +19,7 @@ import com.summer.photos.collector.ActivityCollector;
 
 import java.io.File;
 
-public class ShareActivity extends BaseActivity implements View.OnClickListener{
+public class ShareActivity extends BaseActivity implements View.OnClickListener {
 
     private ImageView imgBack;
     private Button btnComplete;
@@ -38,9 +38,9 @@ public class ShareActivity extends BaseActivity implements View.OnClickListener{
         if (imagePath != null) {
             bitmap = BitmapFactory.decodeFile(imagePath);
             imageView.setImageBitmap(bitmap);
-            Toast.makeText(ShareActivity.this,"图片已经保存在"+imagePath,Toast.LENGTH_LONG).show();
-        }else {
-            Toast.makeText(ShareActivity.this,"图片保存失败",Toast.LENGTH_SHORT).show();
+            Toast.makeText(ShareActivity.this, "图片已经保存在" + imagePath, Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(ShareActivity.this, "图片保存失败", Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -56,25 +56,30 @@ public class ShareActivity extends BaseActivity implements View.OnClickListener{
     }
 
     private void shareWeixinFriend(String imagePath) {
-        Intent intent = new Intent();
-        ComponentName comp = new ComponentName("com.tencent.mm", "com.tencent.mm.ui.tools.ShareToTimeLineUI");
-        intent.setComponent(comp);
-        intent.setAction(Intent.ACTION_SEND);
-        intent.setType("image/*");
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        intent.putExtra("Kdescription", "");
-        File file = new File(imagePath);
-        Uri uri = null;
-        if (Build.VERSION.SDK_INT > 23) {
-            uri = FileProvider.getUriForFile(ShareActivity.this, "com.summer.photo.fileprovider", file);
-        } else {
-            uri = Uri.fromFile(file);
+        try {
+            Intent intent = new Intent();
+            ComponentName comp = new ComponentName("com.tencent.mm", "com.tencent.mm.ui.tools.ShareToTimeLineUI");
+            intent.setComponent(comp);
+            intent.setAction(Intent.ACTION_SEND);
+            intent.setType("image/*");
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            intent.putExtra("Kdescription", "");
+            File file = new File(imagePath);
+            Uri uri = null;
+            if (Build.VERSION.SDK_INT > 23) {
+                uri = FileProvider.getUriForFile(ShareActivity.this, "com.summer.photo.fileprovider", file);
+            } else {
+                uri = Uri.fromFile(file);
+            }
+            if (uri == null) {
+                return;
+            }
+            intent.putExtra(Intent.EXTRA_STREAM, uri);
+            startActivity(intent);
+        } catch (Exception e) {
+            Toast.makeText(ShareActivity.this, "微信出现未知错误", Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
         }
-        if (uri == null){
-            return;
-        }
-        intent.putExtra(Intent.EXTRA_STREAM, uri);
-        startActivity(intent);
     }
 
     @Override
@@ -87,7 +92,7 @@ public class ShareActivity extends BaseActivity implements View.OnClickListener{
                 this.finish();
                 break;
             case R.id.share_btn_complete:
-                startActivity(new Intent(ShareActivity.this,MainActivity.class));
+                startActivity(new Intent(ShareActivity.this, MainActivity.class));
                 ActivityCollector.finishAllActivity();
                 break;
             default:
