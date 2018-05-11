@@ -45,13 +45,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/cropList"
-        android:layout_below="@+id/toolbar">
+        android:layout_below="@+id/toolbar"
+        android:padding="10dp">
 
         <com.summer.photos.crop.CropImageView
             android:id="@+id/cropmageView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
+            android:layout_height="match_parent"
             custom:imageResource="@null" />
     </RelativeLayout>
 

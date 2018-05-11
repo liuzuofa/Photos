@@ -66,6 +66,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        grantPermission();
         initView();
     }
 
@@ -106,7 +107,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        grantPermission();
         if (view.getId() == R.id.camera) {
             Intent cameraIntent = new Intent("android.media.action.IMAGE_CAPTURE");
             if (imgUri == null) {

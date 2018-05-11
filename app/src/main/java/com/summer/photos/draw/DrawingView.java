@@ -176,22 +176,20 @@ public class DrawingView extends View {
         super.setBackgroundColor(color);
     }
 
+    /**
+     * 设置画笔的大小
+     * @param size
+     */
     public void setPenSize(float size) {
         mPaint.setStrokeWidth(size);
     }
 
-    public float getPenSize() {
-        return mPaint.getStrokeWidth();
-    }
-
-    public void setPenColor(@ColorInt int color) {
+    /**
+     * 设置画笔的颜色
+     * @param color
+     */
+    public void setPenColor(int color) {
         mPaint.setColor(color);
-    }
-
-    public
-    @ColorInt
-    int getPenColor() {
-        return mPaint.getColor();
     }
 
     /**
