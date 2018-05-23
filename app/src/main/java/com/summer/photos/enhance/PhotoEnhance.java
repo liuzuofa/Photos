@@ -102,10 +102,8 @@ public class PhotoEnhance {
             case Enhance_Contrast:
 
                 /* 在亮度不变的情况下，提高对比度必定要降低亮度 */
-
                 float regulateBright = 0;
                 regulateBright = (1 - contrastNum) * 128;
-
                 contrastMatrix.reset();
                 contrastMatrix.set(new float[]{
                         contrastNum, 0, 0, 0, regulateBright,

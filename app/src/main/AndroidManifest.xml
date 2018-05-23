@@ -38,7 +38,7 @@
         <activity android:name=".activity.RotateActivity" />
         <activity android:name=".activity.ShareActivity" />
         <activity android:name=".activity.WatermarkActivity" />
-        <activity android:name=".activity.CropActivity"></activity>
+        <activity android:name=".activity.CropActivity"/>
     </application>
 
 </manifest>

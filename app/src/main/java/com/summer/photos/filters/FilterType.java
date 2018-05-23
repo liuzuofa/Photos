@@ -44,14 +44,25 @@ public class FilterType {
     };
 
     /**
+     * 去色效果
+     */
+    public static final int FILTER_DECOLORIZATION = 1322;
+    private float[] decolorization = {
+            1.5F, 1.5F, 1.5F, 0F, -1F,
+            1.5F, 1.5F, 1.5F, 0F, -1F,
+            1.5F, 1.5F, 1.5F, 0F, -1F,
+            0.0F, 0.0F, 0.0F, 1F, 0F
+    };
+
+    /**
      * 反色(底片)效果
      */
     public static final int FILTER_NEGATIVE = 1320;
     private float[] negative = {
-            1.5F, 1.5F, 1.5F, 0F, -1F,
-            1.5F, 1.5F, 1.5F, 0F, -1F,
-            1.5F, 1.5F, 1.5F, 0F, -1F,
-            1.5F, 1.5F, 1.5F, 1F, 0F
+            -1F,  0, 0, 1F, 1F,
+            0,  -1F, 0, 1F, 1F,
+            0,  0, -1F, 1F, 1F,
+            0,   0, 0,  1F, 0F
     };
 
     /**

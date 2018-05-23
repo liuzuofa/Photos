@@ -39,7 +39,7 @@ import java.util.ArrayList;
  *         使用方法:
  *         <p>
  *         1. 创建对象
- *         PhotoFrame  mImageFrame = new PhotoFrame(this,mBitmap);
+ *         PhotoFrame  mImageFrame = new PhotoFrame(mBitmap);
  *         2. 设置类型
  *         <p>
  *         mImageFrame.setFrameType(PhotoFrame.FRAME_SMALL);
