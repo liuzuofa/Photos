@@ -139,11 +139,11 @@ public class GraffitiActivity extends BaseActivity implements View.OnClickListen
 
         drawView.loadImage(newBitmap);
         drawView.initializePen();
-        drawView.setPenSize(10);
+        drawView.setPenSize(20);
         drawView.setPenColor(Color.RED);
 
-        colorLayout.setVisibility(View.VISIBLE);
-        sizeLayout.setVisibility(View.VISIBLE);
+        colorLayout.setVisibility(View.GONE);
+        sizeLayout.setVisibility(View.GONE);
 
     }
 
@@ -212,27 +212,27 @@ public class GraffitiActivity extends BaseActivity implements View.OnClickListen
             case R.id.more_small:
                 setDefaultCircleColor();
                 moreSmallCircle.setColor(0xFFFF1744);
-                drawView.setPenSize(10);
+                drawView.setPenSize(20);
                 break;
             case R.id.small:
                 setDefaultCircleColor();
                 smallCircle.setColor(0xFFFF1744);
-                drawView.setPenSize(20);
+                drawView.setPenSize(40);
                 break;
             case R.id.standard:
                 setDefaultCircleColor();
                 standardCircle.setColor(0xFFFF1744);
-                drawView.setPenSize(30);
+                drawView.setPenSize(60);
                 break;
             case R.id.big:
                 setDefaultCircleColor();
                 bigCircle.setColor(0xFFFF1744);
-                drawView.setPenSize(40);
+                drawView.setPenSize(80);
                 break;
             case R.id.more_big:
                 setDefaultCircleColor();
                 moreBigCircle.setColor(0xFFFF1744);
-                drawView.setPenSize(50);
+                drawView.setPenSize(100);
                 break;
             case R.id.color:
                 changeSVGColor(color,R.drawable.ic_color,penColor);

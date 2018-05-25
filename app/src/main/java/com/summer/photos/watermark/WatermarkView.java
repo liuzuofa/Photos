@@ -54,7 +54,13 @@ public class WatermarkView extends View {
                 canvas.drawBitmap(mDrawBitmap, //绘制背景图
                         (getWidth() - mDrawBitmap.getWidth()) / 2,
                         (getHeight() - mDrawBitmap.getHeight()) / 2, null);
+                Log.d(TAG, "getWidth: " + getWidth());
+                Log.d(TAG, "getHeight: " + getHeight());
+                Log.d(TAG, "mDrawBitmap: " + mDrawBitmap.getWidth());
+                Log.d(TAG, "mDrawBitmap: " + mDrawBitmap.getHeight());
                 if (mWatermarkBitmap != null) {//绘制水印
+                    Log.d(TAG, "mWatermarkBitmap: " + mWatermarkBitmap.getWidth());
+                    Log.d(TAG, "mWatermarkBitmap: " + mWatermarkBitmap.getHeight());
                     if (isDefaultPoint) {
                         defaultPoint.x = (getWidth() - mWatermarkBitmap.getWidth()) / 2;
                         defaultPoint.y = (getHeight() - mWatermarkBitmap.getHeight()) / 2;
@@ -176,7 +182,7 @@ public class WatermarkView extends View {
                     mBackgroundBitmap.getHeight(), Bitmap.Config.ARGB_8888);
             Canvas canvas = new Canvas(bitmap);
             canvas.drawBitmap(mBackgroundBitmap, 0, 0, null);
-            if (isDefaultPoint) {
+            /*if (isDefaultPoint) {
                 defaultPoint.x = (getWidth() - mWatermarkBitmap.getWidth()) / 2;
                 defaultPoint.y = (getHeight() - mWatermarkBitmap.getHeight()) / 2;
                 watermarkPoint.x = defaultPoint.x;
@@ -185,7 +191,8 @@ public class WatermarkView extends View {
                 canvas.drawBitmap(mWatermarkBitmap, defaultPoint.x, defaultPoint.y, null);
             } else {
                 canvas.drawBitmap(mWatermarkBitmap, watermarkPoint.x, watermarkPoint.y, null);
-            }
+            }*/
+
             canvas.save(Canvas.ALL_SAVE_FLAG);
             return bitmap;
         }

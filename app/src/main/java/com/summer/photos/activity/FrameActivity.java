@@ -57,7 +57,7 @@ public class FrameActivity extends BaseActivity implements View.OnClickListener{
         mThreeImageView.setOnClickListener(this);
 
         reset();
-        mImageFrame = new PhotoFrame( mBitmap);
+        mImageFrame = new PhotoFrame(this,mBitmap);
     }
 
     /**
