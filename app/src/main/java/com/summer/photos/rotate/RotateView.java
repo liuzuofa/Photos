@@ -129,7 +129,7 @@ public class RotateView extends ImageView implements ScaleGestureDetector.OnScal
             scale = Math.min(mHeight * 1.0f / mDrawableHeight, mWidth * 1.0f / mDrawableWidth);
         mScale = scale;
         mMaxScale = mScale * 8.0f;
-        mMinScale = mScale * 0.5f;
+        mMinScale = mScale * 0.05f;
     }
 
     /**

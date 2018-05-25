@@ -57,9 +57,21 @@ public class OperateView extends View {
         this.isMultiAdd = isMultiAdd;
     }
 
+    public OperateView(Context context) {
+        super(context);
+    }
+
+
     public OperateView(Context context, Bitmap resizeBmp) {
         super(context);
         bgBmp = resizeBmp;
+        int width = bgBmp.getWidth();
+        int height = bgBmp.getHeight();
+        mCanvasLimits = new Rect(0, 0, width, height);
+    }
+
+    public void setBitmap(Bitmap bitmap) {
+        bgBmp = bitmap;
         int width = bgBmp.getWidth();
         int height = bgBmp.getHeight();
         mCanvasLimits = new Rect(0, 0, width, height);
