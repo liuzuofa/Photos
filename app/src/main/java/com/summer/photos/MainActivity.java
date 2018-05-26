@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.summer.photos.activity.AddWatermarkActivity;
 import com.summer.photos.activity.BaseActivity;
 import com.summer.photos.activity.CropActivity;
 import com.summer.photos.activity.EnhanceActivity;
@@ -217,7 +218,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                         intent.setClass(MainActivity.this, FrameActivity.class);
                         break;
                     case IMAGE_COMIC:
-                        intent.setClass(MainActivity.this, WatermarkActivity.class);
+                        intent.setClass(MainActivity.this, AddWatermarkActivity.class);
                         break;
                 }
                 startActivity(intent);
